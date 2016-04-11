@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<it.mahd.taxidriver.model.DashboardLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1">
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/btn_now"
+        android:drawableTop="@mipmap/ic_now"
+        android:text="@string/now" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/btn_taxi"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/taxi" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/btn_reclamation"
+        android:drawableTop="@mipmap/ic_reclamation"
+        android:text="@string/reclamation" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/btn_profile"
+        android:drawableTop="@mipmap/ic_profile"
+        android:text="@string/profile" />
+</it.mahd.taxidriver.model.DashboardLayout>

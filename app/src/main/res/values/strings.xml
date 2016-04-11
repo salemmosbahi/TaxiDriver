@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Taxi Driver</string>
+
+    <string name="home">Home</string>
+    <string name="now">Book</string>
+    <string name="taxi">Taxi</string>
+    <string name="taxi_search">Search Taxi</string>
+    <string name="reclamation">Reclamation</string>
+    <string name="reclamation_new">New Reclamation</string>
+    <string name="profile">Profile</string>
+    <string name="login">Login</string>
+    <string name="login_link">Already registered! Login Me.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_link">Not a member? Sign up now.</string>
+    <string name="email">Email</string>
+    <string name="email_err">Enter valid email address</string>
+    <string name="password">Password</string>
+    <string name="password_err">Enter the password</string>
+    <string name="fname">First name</string>
+    <string name="fname_err">Enter the first name</string>
+    <string name="lname">Last name</string>
+    <string name="lname_err">Enter the last name</string>
+    <string name="hint_date">yyyy-mm-dd</string>
+    <string name="phone">Phone number</string>
+    <string name="notify">Notify</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="welcome">Welcome</string>
+    <string name="subject">Subject</string>
+    <string name="subject_err">Enter the Subject</string>
+    <string name="message">Message</string>
+    <string name="message_err">Enter the Message</string>
+    <string name="send">Send</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="repeat">Repeat</string>
+    <string name="position">Position</string>
+    <string name="description">Description</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="sun">SUN</string>
+    <string name="networkunvalid">Network is unavailable!</string>
+    <string name="serverunvalid">Server is unavailable!</string>
+    <string name="book">Book</string>
+    <string name="cancel">Cancel</string>
+    <string name="priceCourse">The amount of the taxi race</string>
+    <string name="priceCourse_err">Enter the amount of the taxi race</string>
+    <string name="priceTake">The amount taked</string>
+    <string name="priceTake_err">Enter the amount taked</string>
+    <string name="priceReturn">The amount returned</string>
+    <string name="priceReturn_err">Enter the amount returned</string>
+    <string name="serial">Serial</string>
+    <string name="search">Search</string>
+
+    <string-array name="nav_drawer_labels">
+        <item>@string/home</item>
+        <item>@string/now</item>
+        <item>@string/taxi</item>
+        <item>@string/reclamation</item>
+        <item>@string/profile</item>
+    </string-array>
+
+    <string-array name="gender_arrays">
+        <item>Girl</item>
+        <item>Male</item>
+    </string-array>
+</resources>
