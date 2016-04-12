@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialDesignTheme">
 
-        <activity android:name=".Main">
+        <activity android:name="it.mahd.taxidriver.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

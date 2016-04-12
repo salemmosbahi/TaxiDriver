@@ -80,7 +80,7 @@ public class Taxi extends Fragment {
         Search_input = (TextInputLayout) rootView.findViewById(R.id.Search_input);
         Search_etxt = (EditText) rootView.findViewById(R.id.Search_etxt);
         lv = (ListView) rootView.findViewById(R.id.listTaxi);
-        //lv.setTextFilterEnabled(true);
+        lv.setTextFilterEnabled(true);
 
         FloatingActionButton AddTaxi_btn = (FloatingActionButton) rootView.findViewById(R.id.add_btn);
         AddTaxi_btn.setOnClickListener(new View.OnClickListener() {
@@ -100,14 +100,14 @@ public class Taxi extends Fragment {
             Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
         }
 
-        /*Search_etxt.addTextChangedListener(new TextWatcher() {
+        Search_etxt.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter.getFilter().filter(s.toString());
             }
             public void afterTextChanged(Editable s) { }
-        });*/
+        });
 
         return rootView;
     }
@@ -120,30 +120,23 @@ public class Taxi extends Fragment {
         if(json != null){
             try{
                 if(json.getBoolean(conf.res)) {
-                    Encrypt algo = new Encrypt();
                     loads = json.getJSONArray("data");
-                    int keyVirtual = Integer.parseInt(json.getString(conf.tag_key));
-                    String newKey = algo.key(keyVirtual);
-                    for (int i = 0; i < loads.length(); i++) {
-                        JSONObject c = loads.getJSONObject(i);
-                        String idTaxi = algo.enc2dec(c.getString(conf.tag_id), newKey);
-                        String model = algo.enc2dec(c.getString(conf.tag_model), newKey);
-                        String serial = algo.enc2dec(c.getString(conf.tag_serial), newKey);
-                        String places = algo.enc2dec(c.getString(conf.tag_places), newKey);
-                        String luggages = algo.enc2dec(c.getString(conf.tag_luggages), newKey);
-                        String color = algo.enc2dec(c.getString(conf.tag_color), newKey);
-                        String date = algo.enc2dec(c.getString(conf.tag_date), newKey);
-                        Boolean working = c.getBoolean(conf.tag_status);
-                        /*String idTaxi = c.getString(conf.tag_id);
-                        String model = c.getString(conf.tag_model);
-                        String serial = c.getString(conf.tag_serial);
-                        String places = c.getString(conf.tag_places);
-                        String luggages = c.getString(conf.tag_luggages);
-                        String color = c.getString(conf.tag_color);
-                        String date = c.getString(conf.tag_date);
-                        Boolean working = c.getBoolean(conf.tag_status);*/
-                        TaxiDB taxi = new TaxiDB(idTaxi, model, serial, places, luggages, color, date, working);
-                        taxiDBList.add(taxi);
+                    JSONObject cx = loads.getJSONObject(0);
+                    JSONArray xx = cx.getJSONArray("taxis");
+                    if(xx.length() != 0){
+                        for (int i = 0; i < xx.length(); i++) {
+                            JSONObject c = xx.getJSONObject(i);
+                            String idTaxi = c.getString(conf.tag_id);
+                            String model = c.getString(conf.tag_model);
+                            String serial = c.getString(conf.tag_serial);
+                            String places = String.valueOf(c.getInt(conf.tag_places));
+                            String luggages = String.valueOf(c.getString(conf.tag_luggages));
+                            String colorX = c.getString(conf.tag_color);
+                            String date = c.getString(conf.tag_date);
+                            Boolean working = c.getBoolean(conf.tag_working);
+                            TaxiDB taxi = new TaxiDB(idTaxi, model, serial, places, luggages, colorX, date, working);
+                            taxiDBList.add(taxi);
+                        }
                     }
                 }
             } catch (JSONException e) {

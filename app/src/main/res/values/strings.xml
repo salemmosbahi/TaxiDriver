@@ -57,6 +57,7 @@
     <string name="priceReturn_err">Enter the amount returned</string>
     <string name="serial">Serial</string>
     <string name="search">Search</string>
+    <string name="working">Working</string>
 
     <string-array name="nav_drawer_labels">
         <item>@string/home</item>

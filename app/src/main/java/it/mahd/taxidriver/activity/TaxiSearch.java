@@ -156,4 +156,24 @@ public class TaxiSearch extends Fragment {
             Toast.makeText(getActivity(), R.string.serverunvalid, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.container_body, new Taxi());
+        ft.addToBackStack(null);
+        ft.commit();
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 }

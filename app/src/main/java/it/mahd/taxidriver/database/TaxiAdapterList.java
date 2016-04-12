@@ -79,6 +79,9 @@ public class TaxiAdapterList extends BaseAdapter implements Filterable {
             holder.Date_txt.setTypeface(null, Typeface.BOLD_ITALIC);
         } else {
             holder.Model_txt.setText(data.get(position).getModel());
+            holder.Model_txt.setTypeface(null, Typeface.NORMAL);
+            holder.Serial_txt.setTypeface(null, Typeface.NORMAL);
+            holder.Date_txt.setTypeface(null, Typeface.NORMAL);
         }
 
         holder.Row_relative.setOnClickListener(new View.OnClickListener() {
@@ -86,9 +89,16 @@ public class TaxiAdapterList extends BaseAdapter implements Filterable {
             public void onClick(View x) {
                 Fragment fr = new TaxiProfile();
                 FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-                /*Bundle args = new Bundle();
+                Bundle args = new Bundle();
                 args.putString(conf.tag_id, data.get(position).getIdTaxi());
-                fr.setArguments(args);*/
+                args.putString(conf.tag_model, data.get(position).getModel());
+                args.putString(conf.tag_serial, data.get(position).getSerial());
+                args.putString(conf.tag_places, data.get(position).getPlaces());
+                args.putString(conf.tag_luggages, data.get(position).getLuggages());
+                args.putString(conf.tag_color, data.get(position).getColor());
+                args.putString(conf.tag_date, data.get(position).getDate());
+                args.putBoolean(conf.tag_working, data.get(position).getWorking());
+                fr.setArguments(args);
                 ft.replace(R.id.container_body, fr);
                 ft.addToBackStack(null);
                 ft.commit();
