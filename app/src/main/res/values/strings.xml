@@ -3,6 +3,7 @@
 
     <string name="home">Home</string>
     <string name="now">Book</string>
+    <string name="advance">Advance</string>
     <string name="taxi">Taxi</string>
     <string name="taxi_search">Search Taxi</string>
     <string name="reclamation">Reclamation</string>
@@ -58,10 +59,12 @@
     <string name="serial">Serial</string>
     <string name="search">Search</string>
     <string name="working">Working</string>
+    <string name="gotoadvance">Go to advance</string>
 
     <string-array name="nav_drawer_labels">
         <item>@string/home</item>
         <item>@string/now</item>
+        <item>@string/advance</item>
         <item>@string/taxi</item>
         <item>@string/reclamation</item>
         <item>@string/profile</item>

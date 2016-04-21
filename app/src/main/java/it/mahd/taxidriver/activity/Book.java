@@ -91,9 +91,9 @@ public class Book extends Fragment implements LocationListener {
     boolean canGetLocation = false;// flag for GPS status
     private String tokenOfClient, fnameOfClient;
     private boolean ioBook = false;
-    private boolean ioValid = false;
-    private boolean isClick = false;
-    private boolean isRoute = false;
+    private boolean ioValid = false; // emit to server location if one client booking
+    private boolean isClick = false; // click sur map for desgin 2 pt start & end of client in taxi
+    private boolean isRoute = false; // on going to client post accept book
     private double pcourse, ptake, preturn;
     private double originLatitude, originLongitude, desLatitude, desLongitude;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 3;// The minimum distance to change Updates in meters // 3 meters
@@ -120,7 +120,7 @@ public class Book extends Fragment implements LocationListener {
         ioBook = true;
         ioValid = false; isClick = false; isRoute = false;
         socket.on(conf.io_preBook, handleIncomingPreBook);//listen in book now
-        socket.on(conf.io_validRoute, handleIncomingValidRoute);//listen in valid route
+        socket.on(conf.io_stopBook, handleIncomingStopBook);//listen in stop book
 
         mMapView = (MapView) v.findViewById(R.id.mapView);
         DistanceDuration_txt = (TextView) v.findViewById(R.id.distance_time_txt);
@@ -143,8 +143,8 @@ public class Book extends Fragment implements LocationListener {
             longitude = getLongitude();
         }else{
             showSettingsAlert();
-            latitude = 0;
-            longitude = 0;
+            /*latitude = 0;
+            longitude = 0;*/
         }
         cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(15).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -208,7 +208,7 @@ public class Book extends Fragment implements LocationListener {
             @Override
             public void onClick(View view) {
                 isStart = false;
-                sendToServer(0, 0, isStart);
+                sendToServer(latitude, longitude, isStart);
             }
         });
 
@@ -218,7 +218,7 @@ public class Book extends Fragment implements LocationListener {
             public void onClick(View view) {
                 isStart = false; ioBook = false;
                 isClick = true;
-                sendToServer(0, 0, isStart);
+                sendToServer(latitude, longitude, isStart);
                 /*if (!isClick)
                     Toast.makeText(getActivity(), "Other service !!", Toast.LENGTH_SHORT).show();*/
                 googleMap.clear();
@@ -312,18 +312,25 @@ public class Book extends Fragment implements LocationListener {
         return v;
     }
 
-    private Emitter.Listener handleIncomingValidRoute = new Emitter.Listener(){
+    private Emitter.Listener handleIncomingStopBook = new Emitter.Listener(){
         public void call(final Object... args){
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     if (isRoute) {
                         JSONObject data = (JSONObject) args[0];
                         final String tokenClient;
-                        final Boolean valid;
+                        final Boolean stop;
                         try {
-                            valid = data.getBoolean(conf.tag_validRoute);
+                            stop = data.getBoolean(conf.tag_stopBook);
                             tokenClient = data.getString(conf.tag_tokenClient);
-                            if (valid && tokenClient.equals(tokenOfClient)) isClick = false;
+                            if (stop && tokenClient.equals(tokenOfClient)) {
+                                tokenOfClient = "";
+                                DistanceDuration_txt.setText("");
+                                googleMap.clear();
+                                ioValid = false; isClick = false; isRoute = false;
+                                isStart = true; ioBook = true;
+                                sendToServer(latitude, longitude, isStart);
+                            }
                         } catch (JSONException e) { }
                     }
                 }
@@ -371,7 +378,7 @@ public class Book extends Fragment implements LocationListener {
                                         isClick = false;
                                         isStart = false;
                                         isRoute = true;
-                                        sendToServer(0, 0, isStart);
+                                        sendToServer(latitude, longitude, isStart);
                                         googleMap.clear();
                                         MarkerOptions options = new MarkerOptions();
                                         LatLng origin = new LatLng(latitude, longitude);

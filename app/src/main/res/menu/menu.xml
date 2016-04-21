@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="it.mahd.taxidriver.Main">
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_notify"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_popup_reminder"
+        android:title="@string/notify"
+        app:showAsAction="always" />
 </menu>

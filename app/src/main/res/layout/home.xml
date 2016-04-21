@@ -13,6 +13,12 @@
 
     <Button
         style="@style/DashButton"
+        android:id="@+id/btn_advance"
+        android:drawableTop="@mipmap/ic_now"
+        android:text="@string/advance" />
+
+    <Button
+        style="@style/DashButton"
         android:id="@+id/btn_taxi"
         android:drawableTop="@mipmap/ic_launcher"
         android:text="@string/taxi" />

@@ -95,7 +95,7 @@ public class TaxiProfile extends Fragment {
         params.add(new BasicNameValuePair(conf.tag_working, String.valueOf(work)));
         JSONObject json = sr.getJSON(conf.url_editTaxiFromDriver, params);
         if(json != null){
-            try{
+            try {
                 Toast.makeText(getActivity(), json.getString(conf.response), Toast.LENGTH_SHORT).show();
                 if (json.getBoolean(conf.res)) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -104,7 +104,7 @@ public class TaxiProfile extends Fragment {
                     ft.commit();
                     ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi));
                 }
-            }catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {

@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  */
 public class Controllers {
     //public static final String url = "http://10.0.2.2:4004";
-    public static final String url = "http://192.168.1.2:4004";
+    public static final String url = "http://192.168.1.3:4004";
     public static final String url_addReclamation = url + "/addReclamation";
     public static final String url_getAllReclamation = url + "/getAllReclamation";
     public static final String url_addMessage = url + "/addMessage";
@@ -25,6 +25,7 @@ public class Controllers {
     public static final String url_searchTaxi = url + "/searchTaxi";
     public static final String url_addTaxiToDriver = url + "/addTaxiToDriver";
     public static final String url_editTaxiFromDriver = url + "/editTaxiFromDriver";
+    public static final String url_haveTaxi = url + "/haveTaxi";
 
 
     public static final String app = "AppTaxiDriver";
@@ -71,7 +72,8 @@ public class Controllers {
     public static final String tag_originLongitude = "originLongitude";
     public static final String tag_desLatitude = "desLatitude";
     public static final String tag_desLongitude = "desLongitude";
-    public static final String tag_validRoute = "validRoute";
+    //public static final String tag_validRoute = "validRoute";
+    public static final String tag_stopBook = "stopBook";
     public static final String tag_pcourse = "pcourse";
     public static final String tag_ptake = "ptake";
     public static final String tag_preturn = "preturn";
@@ -81,6 +83,7 @@ public class Controllers {
     public static final String tag_places = "places";
     public static final String tag_luggages = "luggages";
     public static final String tag_color = "color";
+    public static final String tag_notify = "notify";
 
     public static final String tag_socket = "socket";
     public static final String io_searchTaxi = "searchTaxi";
@@ -88,8 +91,10 @@ public class Controllers {
     public static final String io_validBook = "validBook";
     public static final String io_postBook = "postBook";
     public static final String io_drawRoute = "drawRoute";
-    public static final String io_validRoute = "validRoute";
+    //public static final String io_validRoute = "validRoute";
+    public static final String io_stopBook = "stopBook";
     public static final String io_endCourse = "endCourse";
+    public static final String io_notify = "notify";
 
     public Controllers() {}
 
