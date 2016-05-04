@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class TaxiSearch extends Fragment {
         Serial_txt = (TextView) rootView.findViewById(R.id.Serial_txt);
         Places_txt = (TextView) rootView.findViewById(R.id.Places_txt);
         Luggages_txt = (TextView) rootView.findViewById(R.id.Luggages_txt);
+
         Search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,10 +78,22 @@ public class TaxiSearch extends Fragment {
             }
         });
 
+        Add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (conf.NetworkIsAvailable(getActivity())) {
+                    submitForm();
+                } else {
+                    Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         return rootView;
     }
 
     private void searchtForm() {
+        Log.d("TaxiSearch","cx: " + Serial_etxt.getText().toString());
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair(conf.tag_serial, Serial_etxt.getText().toString()));
         JSONObject json = sr.getJSON(conf.url_searchTaxi, params);
@@ -108,16 +122,6 @@ public class TaxiSearch extends Fragment {
                     Luggages_txt.setTextColor(Color.parseColor(color));
                     Luggages_txt.setText(luggages);
                     Add_btn.setVisibility(View.VISIBLE);
-                    Add_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (conf.NetworkIsAvailable(getActivity())) {
-                                submitForm();
-                            } else {
-                                Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
                 } else {
                     Mark_txt.setText("");
                     Model_txt.setText("");
