@@ -95,7 +95,6 @@ public class TaxiAdapterList extends BaseAdapter implements Filterable {
                 args.putString(conf.tag_serial, data.get(position).getSerial());
                 args.putString(conf.tag_places, data.get(position).getPlaces());
                 args.putString(conf.tag_luggages, data.get(position).getLuggages());
-                args.putString(conf.tag_color, data.get(position).getColor());
                 args.putString(conf.tag_date, data.get(position).getDate());
                 args.putBoolean(conf.tag_working, data.get(position).getWorking());
                 fr.setArguments(args);

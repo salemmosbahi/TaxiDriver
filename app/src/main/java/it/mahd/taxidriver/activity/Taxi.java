@@ -131,10 +131,9 @@ public class Taxi extends Fragment {
                             String serial = c.getString(conf.tag_serial);
                             String places = String.valueOf(c.getInt(conf.tag_places));
                             String luggages = String.valueOf(c.getString(conf.tag_luggages));
-                            String colorX = c.getString(conf.tag_color);
                             String date = c.getString(conf.tag_date);
                             Boolean working = c.getBoolean(conf.tag_working);
-                            TaxiDB taxi = new TaxiDB(idTaxi, model, serial, places, luggages, colorX, date, working);
+                            TaxiDB taxi = new TaxiDB(idTaxi, model, serial, places, luggages, date, working);
                             taxiDBList.add(taxi);
                         }
                     }

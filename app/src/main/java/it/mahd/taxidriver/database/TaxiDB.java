@@ -4,16 +4,15 @@ package it.mahd.taxidriver.database;
  * Created by salem on 4/6/16.
  */
 public class TaxiDB {
-    private String idTaxi, model, serial, places, luggages, color, date;
+    private String idTaxi, model, serial, places, luggages, date;
     private Boolean working;
 
-    public TaxiDB(String idTaxi, String model, String serial, String places, String luggages, String color, String date, Boolean working) {
+    public TaxiDB(String idTaxi, String model, String serial, String places, String luggages, String date, Boolean working) {
         this.idTaxi = idTaxi;
         this.model = model;
         this.serial = serial;
         this.places = places;
         this.luggages = luggages;
-        this.color = color;
         this.date = date;
         this.working = working;
     }
@@ -36,10 +35,6 @@ public class TaxiDB {
 
     public String getLuggages() {
         return luggages;
-    }
-
-    public String getColor() {
-        return color;
     }
 
     public String getDate() {
@@ -68,10 +63,6 @@ public class TaxiDB {
 
     public void setLuggages(String luggages) {
         this.luggages = luggages;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public void setDate(String date) {

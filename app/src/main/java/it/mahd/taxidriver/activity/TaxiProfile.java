@@ -38,7 +38,7 @@ public class TaxiProfile extends Fragment {
 
     private TextView Model_txt, Serial_txt, Places_txt, Luggages_txt, Date_txt;
     private SwitchCompat Working_swt;
-    private String idTaxi, model, serial, places, luggages, color, date;
+    private String idTaxi, model, serial, places, luggages, date;
     private Boolean working;
 
     @Override
@@ -51,7 +51,6 @@ public class TaxiProfile extends Fragment {
         serial = getArguments().getString(conf.tag_serial);
         places = getArguments().getString(conf.tag_places);
         luggages = getArguments().getString(conf.tag_luggages);
-        color = getArguments().getString(conf.tag_color);
         date = getArguments().getString(conf.tag_date);
         working = getArguments().getBoolean(conf.tag_working);
 
@@ -62,15 +61,10 @@ public class TaxiProfile extends Fragment {
         Date_txt = (TextView) rootView.findViewById(R.id.Date_txt);
         Working_swt = (SwitchCompat) rootView.findViewById(R.id.Working_swt);
 
-        Model_txt.setTextColor(Color.parseColor(color));
         Model_txt.setText(model);
-        Serial_txt.setTextColor(Color.parseColor(color));
         Serial_txt.setText(serial);
-        Places_txt.setTextColor(Color.parseColor(color));
         Places_txt.setText(places + " Places");
-        Luggages_txt.setTextColor(Color.parseColor(color));
         Luggages_txt.setText(luggages + " Luggages");
-        Date_txt.setTextColor(Color.parseColor(color));
         Date_txt.setText(date);
         Working_swt.setChecked(working);
 
