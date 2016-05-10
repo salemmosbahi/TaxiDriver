@@ -43,7 +43,7 @@ public class TaxiSearch extends Fragment {
     private TextInputLayout Serial_input;
     private FloatingActionButton Search_btn, Add_btn;
     private TextView Mark_txt, Model_txt, Serial_txt, Places_txt, Luggages_txt;
-    private String idTaxi, color, mark, model, serial, places, luggages;
+    private String idTaxi, mark, model, serial, places, luggages;
 
     public TaxiSearch() {}
 
@@ -93,7 +93,7 @@ public class TaxiSearch extends Fragment {
     }
 
     private void searchtForm() {
-        Log.d("TaxiSearch","cx: " + Serial_etxt.getText().toString());
+        //Log.d("TaxiSearch","cx: " + Serial_etxt.getText().toString());
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair(conf.tag_serial, Serial_etxt.getText().toString()));
         JSONObject json = sr.getJSON(conf.url_searchTaxi, params);
@@ -105,21 +105,21 @@ public class TaxiSearch extends Fragment {
                     String newKey = algo.key(keyVirtual);
 
                     idTaxi = json.getString(conf.tag_id);
-                    color = algo.enc2dec(json.getString(conf.tag_color), newKey);
+                    //color = algo.enc2dec(json.getString(conf.tag_color), newKey);
                     mark = algo.enc2dec(json.getString(conf.tag_mark), newKey);
                     model = algo.enc2dec(json.getString(conf.tag_model), newKey);
                     serial = algo.enc2dec(json.getString(conf.tag_serial), newKey);
                     places = algo.enc2dec(json.getString(conf.tag_places), newKey) + " Places";
                     luggages = algo.enc2dec(json.getString(conf.tag_luggages), newKey) + " Kg Luggages";
-                    Mark_txt.setTextColor(Color.parseColor(color));
+                    //Mark_txt.setTextColor(Color.parseColor(color));
                     Mark_txt.setText(mark);
-                    Model_txt.setTextColor(Color.parseColor(color));
+                    //Model_txt.setTextColor(Color.parseColor(color));
                     Model_txt.setText(model);
-                    Serial_txt.setTextColor(Color.parseColor(color));
+                    //Serial_txt.setTextColor(Color.parseColor(color));
                     Serial_txt.setText(serial);
-                    Places_txt.setTextColor(Color.parseColor(color));
+                    //Places_txt.setTextColor(Color.parseColor(color));
                     Places_txt.setText(places);
-                    Luggages_txt.setTextColor(Color.parseColor(color));
+                    //Luggages_txt.setTextColor(Color.parseColor(color));
                     Luggages_txt.setText(luggages);
                     Add_btn.setVisibility(View.VISIBLE);
                 } else {

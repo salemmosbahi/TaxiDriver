@@ -157,7 +157,7 @@ public class SignUp extends Fragment {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DateN_txt.setText(new StringBuilder().append(1990).append("-").append(month + 1).append("-").append(day));
+        DateN_txt.setText(new StringBuilder().append(1990).append("/").append(month + 1).append("/").append(day));
         DateN_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -376,7 +376,7 @@ public class SignUp extends Fragment {
             year = selectedYear;
             month = selectedMonth;
             day = selectedDay;
-            DateN_txt.setText(new StringBuilder().append(year).append("-").append(month + 1).append("-").append(day));
+            DateN_txt.setText(new StringBuilder().append(year).append("/").append(month + 1).append("/").append(day));
         }
     };
 
