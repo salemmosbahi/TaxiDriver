@@ -55,11 +55,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import it.mahd.taxidriver.Main;
 import it.mahd.taxidriver.R;
+import it.mahd.taxidriver.util.Calculator;
 import it.mahd.taxidriver.util.Controllers;
 import it.mahd.taxidriver.util.DirectionMap;
 import it.mahd.taxidriver.util.ServerRequest;
@@ -537,7 +539,13 @@ public class Book extends Fragment implements LocationListener {
                 lineOptions.width(2);
                 lineOptions.color(Color.RED);
             }
-            DistanceDuration_txt.setText("Distance:"+distance + ", Duration:"+duration);
+            // TODO get time & verify + 5min
+            int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+            if (hour == 7 || hour == 8 || hour == 11 || hour == 12 || hour == 17 || hour == 18) {
+                DistanceDuration_txt.setText("Distance:"+distance + ", Duration:"+(duration+5));
+            } else {
+                DistanceDuration_txt.setText("Distance:"+distance + ", Duration:"+duration);
+            }
             // Drawing polyline in the Google Map for the i-th route
             googleMap.addPolyline(lineOptions);
         }

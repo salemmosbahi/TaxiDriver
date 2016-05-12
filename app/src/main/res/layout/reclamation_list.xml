@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_rl"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="8dp" >
@@ -11,18 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="8dp"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/status_txt"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/subject_txt"
-        android:layout_marginTop="2dip"
-        android:gravity="left"
-        android:textColor="@color/red"
-        android:textSize="10dp" />
 
     <TextView
         android:id="@+id/date_txt"
@@ -31,13 +22,6 @@
         android:layout_below="@id/subject_txt"
         android:layout_marginTop="2dip"
         android:gravity="right"
-        android:textColor="@color/red"
-        android:textSize="10dp" />
-
-    <TextView
-        android:id="@+id/idRec"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
+        android:textColor="@color/blue"
+        android:textSize="13dp" />
 </RelativeLayout>

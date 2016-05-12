@@ -29,19 +29,22 @@ import java.util.List;
 
 import it.mahd.taxidriver.Main;
 import it.mahd.taxidriver.R;
+import it.mahd.taxidriver.database.ReclamationAdapterList;
+import it.mahd.taxidriver.database.ReclamationDB;
 import it.mahd.taxidriver.util.Controllers;
 import it.mahd.taxidriver.util.ServerRequest;
 
 /**
  * Created by salem on 2/13/16.
  */
-public class Reclamation extends ListFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class Reclamation extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     SharedPreferences pref;
     Controllers conf = new Controllers();
     ServerRequest sr = new ServerRequest();
 
     private SwipeRefreshLayout Refresh_swipe;
-    ArrayList<HashMap<String, String>> ReclamationList;
+    private ListView lv;
+    ArrayList<ReclamationDB> reclamationDBListx;
     JSONArray loads = null;
 
     @Override
@@ -50,6 +53,7 @@ public class Reclamation extends ListFragment implements SwipeRefreshLayout.OnRe
 
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
         Refresh_swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_swipe);
+        lv = (ListView) rootView.findViewById(R.id.listReclamation);
         Refresh_swipe.setOnRefreshListener(this);
         Refresh_swipe.post(new Runnable() {
                                public void run() {
@@ -67,7 +71,6 @@ public class Reclamation extends ListFragment implements SwipeRefreshLayout.OnRe
                 ft.replace(R.id.container_body, new ReclamationAdd());
                 ft.addToBackStack(null);
                 ft.commit();
-                ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation_new));
             }
         });
         return rootView;
@@ -82,7 +85,7 @@ public class Reclamation extends ListFragment implements SwipeRefreshLayout.OnRe
             Refresh_swipe.setRefreshing(true);
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair(conf.tag_token, pref.getString(conf.tag_token, "")));
-            ReclamationList = new ArrayList<HashMap<String, String>>();
+            reclamationDBListx = new ArrayList<>();
             JSONObject json = sr.getJSON(conf.url_getAllReclamation, params);
             if(json != null){
                 try{
@@ -94,40 +97,21 @@ public class Reclamation extends ListFragment implements SwipeRefreshLayout.OnRe
                             String subject = c.getString(conf.tag_subject);
                             String date = c.getString(conf.tag_date);
                             Boolean status = c.getBoolean(conf.tag_status);
-                            HashMap<String, String> map = new HashMap<String, String>();
-                            map.put(conf.tag_id, id);
-                            map.put(conf.tag_subject, subject);
-                            map.put(conf.tag_date, date);
-                            map.put(conf.tag_status, (status) ? "Now" : "");
-                            ReclamationList.add(map);
+                            Boolean me = c.getBoolean(conf.tag_me);
+                            ReclamationDB rec = new ReclamationDB(id, subject, date, status, me);
+                            reclamationDBListx.add(rec);
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            ListAdapter adapter = new SimpleAdapter(getActivity(), ReclamationList, R.layout.reclamation_list,
-                    new String[] { conf.tag_subject, conf.tag_status, conf.tag_date, conf.tag_id },
-                    new int[] { R.id.subject_txt, R.id.status_txt, R.id.date_txt, R.id.idRec });
-            setListAdapter(adapter);
+            ReclamationAdapterList adapter = new ReclamationAdapterList(getActivity(), reclamationDBListx, Reclamation.this);
+            lv.setAdapter(adapter);
             Refresh_swipe.setRefreshing(false);
         }else{
             Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void onListItemClick(ListView l, View view, int position, long id){
-        ViewGroup viewg = (ViewGroup)view;
-        TextView tv = (TextView) viewg.findViewById(R.id.idRec);
-        Fragment fr = new ReclamationChat();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Bundle args = new Bundle();
-        args.putString(conf.tag_id, tv.getText().toString());
-        fr.setArguments(args);
-        ft.replace(R.id.container_body, fr);
-        ft.addToBackStack(null);
-        ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation));
     }
 
     @Override
@@ -142,7 +126,6 @@ public class Reclamation extends ListFragment implements SwipeRefreshLayout.OnRe
         ft.replace(R.id.container_body, new Home());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.home));
     }
 
     @Override

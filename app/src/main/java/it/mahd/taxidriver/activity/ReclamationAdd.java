@@ -130,7 +130,6 @@ public class ReclamationAdd extends Fragment {
         ft.replace(R.id.container_body, new Reclamation());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation));
     }
 
     @Override

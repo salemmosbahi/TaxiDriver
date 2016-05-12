@@ -65,6 +65,7 @@ public class SignUp extends Fragment {
     private Button Login_btn, SignUp_btn;
     private ImageView Picture_iv;
 
+    private boolean isPicture = false;
     private int year, month, day;
     private static final int SELECT_PICTURE = 1;
     private String imagePath;
@@ -74,7 +75,7 @@ public class SignUp extends Fragment {
 
     public SignUp() {}
 
-    private boolean NetworkIsAvailable() {
+    /*private boolean NetworkIsAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isAvailable = false;
@@ -82,7 +83,7 @@ public class SignUp extends Fragment {
             isAvailable = true;
         }
         return isAvailable;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,7 @@ public class SignUp extends Fragment {
                 Uri selectedImageUri = data.getData();
                 imagePath = selectedImageUri.getPath();
                 Picture_iv.setImageURI(selectedImageUri);
+                isPicture = true;
             }
         }
     }
@@ -271,7 +273,11 @@ public class SignUp extends Fragment {
         params.add(new BasicNameValuePair(conf.tag_email, algo.dec2enc(Email_etxt.getText().toString(), key)));
         params.add(new BasicNameValuePair(conf.tag_password, algo.dec2enc(Password_etxt.getText().toString(), key)));
         params.add(new BasicNameValuePair(conf.tag_phone, algo.dec2enc(Phone_etxt.getText().toString(), key)));
-        params.add(new BasicNameValuePair(conf.tag_picture, getStringPicture()));
+        if (isPicture) {
+            params.add(new BasicNameValuePair(conf.tag_picture, getStringPicture()));
+        } else {
+            params.add(new BasicNameValuePair(conf.tag_picture, ""));
+        }
         params.add(new BasicNameValuePair(conf.tag_key, x + ""));
         JSONObject json = sr.getJSON(conf.url_signup, params);
         if(json != null){
