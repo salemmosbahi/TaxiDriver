@@ -60,6 +60,7 @@
     <string name="search">Search</string>
     <string name="working">Working</string>
     <string name="gotoadvance">Go to advance</string>
+    <string name="disable">Disable</string>
 
     <string-array name="nav_drawer_labels">
         <item>@string/home</item>

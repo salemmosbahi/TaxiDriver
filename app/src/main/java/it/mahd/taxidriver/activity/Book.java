@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -366,6 +367,7 @@ public class Book extends Fragment implements LocationListener {
                                 Book_btn = (Button) bookDialog.findViewById(R.id.book_btn);
                                 Cancel_btn = (Button) bookDialog.findViewById(R.id.cancel_btn);
                                 bookDialog.show();
+                                timerDelayRemoveDialog(20000, bookDialog);
                                 Cancel_btn.setOnClickListener(new View.OnClickListener() {
                                     public void onClick(View v) {
                                         bookDialog.dismiss();
@@ -416,6 +418,14 @@ public class Book extends Fragment implements LocationListener {
             });
         }
     };
+
+    public void timerDelayRemoveDialog(long time, final Dialog d){
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                d.dismiss();
+            }
+        }, time);
+    }
 
     private String getDirectionsUrl(LatLng origin,LatLng dest){
         // Origin of route

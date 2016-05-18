@@ -145,5 +145,17 @@
             android:background="@color/red"
             android:textColor="@color/white"
             android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/Disable_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_marginBottom="20dip"
+            android:text="@string/disable"
+            android:textAllCaps="false"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
     </LinearLayout>
 </ScrollView>

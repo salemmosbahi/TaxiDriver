@@ -55,7 +55,7 @@ public class Calculator {
     }
 
     public int[] getAge(String date) {
-        String[] strTemp = date.split("-");
+        String[] strTemp = date.split("/");
         int birthdayYear = Integer.parseInt(strTemp[0].toString());
         int birthdayMonth = Integer.parseInt(strTemp[1].toString());
         int birthdayDay = Integer.parseInt(strTemp[2].toString());

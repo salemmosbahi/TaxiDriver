@@ -15,6 +15,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,33 +27,33 @@ import android.util.Log;
  * Created by salem on 2/13/16.
  */
 public class ServerRequest {
-
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
 
     public ServerRequest() {}
 
-    public JSONObject getJSONFromUrl(String url, List<NameValuePair> params){
-
-        try{
+    public JSONObject getJsonFromUrl(String url, List<NameValuePair> params) {
+        try {
             DefaultHttpClient httpClient = new DefaultHttpClient();
+            final HttpParams httpParameters = httpClient.getParams();
+            HttpConnectionParams.setConnectionTimeout(httpParameters, 2000);
+            HttpConnectionParams.setSoTimeout(httpParameters, 4000);
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new UrlEncodedFormEntity(params));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
-        }catch(UnsupportedEncodingException e){
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }catch(ClientProtocolException e){
+        } catch(ClientProtocolException e) {
             e.printStackTrace();
-        }catch(IOException e){
+        } catch(IOException e) {
             e.printStackTrace();
         }
 
-        try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8); //iso-8859-1
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -60,34 +62,34 @@ public class ServerRequest {
             is.close();
             json = sb.toString();
             Log.e("JSON", json);
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
 
-        try{
+        try {
             jObj = new JSONObject(json);
-        }catch(JSONException e) {
+        } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         return jObj;
     }
 
     JSONObject jobj;
-    public JSONObject getJSON(String url, List<NameValuePair> params){
 
+    public JSONObject getJSON(String url, List<NameValuePair> params) {
         Params param = new Params(url,params);
         Request myTask = new Request();
-        try{
-            jobj= myTask.execute(param).get();
-        }catch(InterruptedException e){
+        try {
+            jobj = myTask.execute(param).get();
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }catch(ExecutionException e){
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
         return jobj;
     }
 
-    private static class Params{
+    private static class Params {
         String url;
         List<NameValuePair> params;
         Params(String url, List<NameValuePair> params) {
@@ -97,15 +99,10 @@ public class ServerRequest {
     }
 
     private class Request extends AsyncTask<Params, String, JSONObject> {
-        @Override
         protected JSONObject doInBackground(Params... args){
             ServerRequest request = new ServerRequest();
-            JSONObject json = request.getJSONFromUrl(args[0].url,args[0].params);
+            JSONObject json = request.getJsonFromUrl(args[0].url,args[0].params);
             return json;
-        }
-        @Override
-        protected void onPostExecute(JSONObject json){
-            super.onPostExecute(json);
         }
     }
 }
