@@ -118,6 +118,8 @@ public class Book extends Fragment implements LocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.book, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.now));
+
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
         socket.connect();
         ioBook = true;
@@ -788,7 +790,6 @@ public class Book extends Fragment implements LocationListener {
         ft.replace(R.id.container_body, new Home());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.home));
     }
 
     @Override

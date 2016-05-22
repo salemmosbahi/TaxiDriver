@@ -50,6 +50,7 @@ public class Reclamation extends Fragment implements SwipeRefreshLayout.OnRefres
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.reclamation, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation));
 
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
         Refresh_swipe = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_swipe);

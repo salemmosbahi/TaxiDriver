@@ -43,6 +43,7 @@ public class ReclamationAdd extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.reclamation_add, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation_new));
 
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
         Subject_input = (TextInputLayout) rootView.findViewById(R.id.input_subject);
@@ -85,7 +86,6 @@ public class ReclamationAdd extends Fragment {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Reclamation());
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation));
                 }
             }catch(JSONException e){
                 e.printStackTrace();

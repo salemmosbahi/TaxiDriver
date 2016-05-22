@@ -53,6 +53,7 @@ public class ReclamationChat extends Fragment implements OnClickListener, SwipeR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.reclamation_chat, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation));
 
         idRec = getArguments().getString(conf.tag_id);
         Message_etxt = (EditText) rootView.findViewById(R.id.message_etxt);
@@ -167,7 +168,6 @@ public class ReclamationChat extends Fragment implements OnClickListener, SwipeR
         ft.replace(R.id.container_body, new Reclamation());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation));
     }
 
     @Override

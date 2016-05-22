@@ -22,6 +22,6 @@
         android:layout_below="@id/subject_txt"
         android:layout_marginTop="2dip"
         android:gravity="right"
-        android:textColor="@color/blue"
+        android:textColor="@color/red"
         android:textSize="13dp" />
 </RelativeLayout>

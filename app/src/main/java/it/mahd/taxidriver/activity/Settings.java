@@ -33,6 +33,7 @@ public class Settings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.settings, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.settings));
 
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
         return rootView;
@@ -45,6 +46,5 @@ public class Settings extends Fragment {
         ft.replace(R.id.container_body, new Home());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.home));
     }
 }

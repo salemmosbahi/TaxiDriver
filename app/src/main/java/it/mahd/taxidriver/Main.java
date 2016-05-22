@@ -35,6 +35,7 @@ import java.util.List;
 
 import it.mahd.taxidriver.activity.Advance;
 import it.mahd.taxidriver.activity.Book;
+import it.mahd.taxidriver.activity.Box;
 import it.mahd.taxidriver.activity.Taxi;
 import it.mahd.taxidriver.activity.Home;
 import it.mahd.taxidriver.activity.Login;
@@ -113,8 +114,8 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_notify);
-        menuItem.setVisible(false);
+        //MenuItem menuItem = menu.findItem(R.id.action_notify);
+        //menuItem.setVisible(false);
         return true;
     }
 
@@ -122,7 +123,7 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_notify){
-            item.setVisible(false);
+            //item.setVisible(false);
             displayView(6);
             return true;
         }
@@ -167,8 +168,8 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 title = getString(R.string.profile);
                 break;
             case 6:
-                fragment = new Settings();
-                title = getString(R.string.notify);
+                fragment = new Box();
+                title = getString(R.string.box);
                 break;
             case 7:
                 fragment = new Settings();

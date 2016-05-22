@@ -55,6 +55,8 @@ public class TaxiSearch extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.taxi_search, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi_search));
+
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
 
         Serial_input = (TextInputLayout) rootView.findViewById(R.id.Serial_input);
@@ -151,7 +153,6 @@ public class TaxiSearch extends Fragment {
                     ft.replace(R.id.container_body, new Taxi());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi));
                 }
             }catch (JSONException e) {
                 e.printStackTrace();
@@ -168,7 +169,6 @@ public class TaxiSearch extends Fragment {
         ft.replace(R.id.container_body, new Taxi());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi));
     }
 
     @Override

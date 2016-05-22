@@ -61,6 +61,7 @@ public class Login extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.login, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.login));
 
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
         Email_input = (TextInputLayout) rootView.findViewById(R.id.input_email);
@@ -97,7 +98,6 @@ public class Login extends Fragment {
         ft.replace(R.id.container_body, new SignUp());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.sign_up));
     }
 
     private void submitForm() {
@@ -145,7 +145,6 @@ public class Login extends Fragment {
                     ft.replace(R.id.container_body, new Home());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.home));
                 }else{
                     Toast.makeText(getActivity(),jsonstr,Toast.LENGTH_SHORT).show();
                 }

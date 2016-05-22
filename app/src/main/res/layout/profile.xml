@@ -40,7 +40,7 @@
                     android:paddingTop="20dp"
                     android:paddingLeft="5dp"
                     android:paddingBottom="5dp"
-                    android:textColor="@color/purpleDeep"
+                    android:textColor="@color/red"
                     android:textStyle="bold|italic"
                     android:textSize="26sp"/>
 
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:textColor="@color/purpleDeep"
+                    android:textColor="@color/red"
                     android:textSize="18sp"/>
 
                 <LinearLayout
@@ -81,21 +81,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:textColor="@color/purpleDeep"
+            android:textColor="@color/red"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/email_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purpleDeep"
+            android:textColor="@color/red"
             android:textSize="15sp" />
 
         <TextView
             android:id="@+id/phone_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purpleDeep"
+            android:textColor="@color/red"
             android:textSize="15sp" />
 
         <LinearLayout
@@ -154,7 +154,7 @@
             android:layout_marginBottom="20dip"
             android:text="@string/disable"
             android:textAllCaps="false"
-            android:background="@color/blue"
+            android:background="@color/red"
             android:textColor="@color/white"
             android:textSize="18sp"/>
     </LinearLayout>

@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  */
 public class Controllers {
     //public static final String url = "http://10.0.2.2:4004";
-    public static final String url = "http://192.168.1.6:4004";
+    public static final String url = "http://192.168.1.2:4004";
     public static final String url_addReclamation = url + "/addReclamation";
     public static final String url_getAllReclamation = url + "/getAllReclamation";
     public static final String url_addMessage = url + "/addMessage";
@@ -29,6 +29,11 @@ public class Controllers {
     public static final String url_editAge = url + "/editAge";
     public static final String url_editPhone = url + "/editPhone";
     public static final String url_disableAccount = url + "/disableAccount";
+    public static final String url_changeSeen = url + "/changeSeen";
+    public static final String url_getAdvanceByDriver = url + "/getAdvanceByDriver";
+    public static final String url_getAdvanceWaiting = url + "/getAdvanceWaiting";
+    public static final String url_getAdvanceById = url + "/getAdvanceById";
+    public static final String url_acceptDemand = url + "/acceptDemand";
 
     public static final String app = "AppTaxiDriver";
     public static final String res = "res";
@@ -57,6 +62,7 @@ public class Controllers {
     public static final String tag_subject = "subject";
     public static final String tag_message = "message";
     public static final String tag_date = "date";
+    public static final String tag_dateBook = "dateBook";
     public static final String tag_status = "status";
     public static final String tag_me = "me";
     public static final String tag_sender = "sender";
@@ -88,6 +94,7 @@ public class Controllers {
     public static final String tag_luggages = "luggages";
     public static final String tag_color = "color";
     public static final String tag_notify = "notify";
+    public static final String tag_activity = "activity";
 
     public static final String tag_socket = "socket";
     public static final String io_searchTaxi = "searchTaxi";

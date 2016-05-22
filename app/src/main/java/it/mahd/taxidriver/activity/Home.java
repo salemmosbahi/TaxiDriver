@@ -51,6 +51,8 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
 
         Button Now_btn = (Button) rootView.findViewById(R.id.btn_now);
@@ -62,7 +64,6 @@ public class Home extends Fragment {
                     ft.replace(R.id.container_body, new Login());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.login));
                 } else {
                     if(conf.NetworkIsAvailable(getActivity())){
                         haveTaxi(getString(R.string.now));
@@ -82,7 +83,6 @@ public class Home extends Fragment {
                     ft.replace(R.id.container_body, new Login());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.login));
                 }else{
                     if(conf.NetworkIsAvailable(getActivity())){
                         haveTaxi(getString(R.string.advance));
@@ -101,13 +101,11 @@ public class Home extends Fragment {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Login());
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.login));
                 }else{
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Taxi());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi));
                 }
             }
         });
@@ -120,13 +118,11 @@ public class Home extends Fragment {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Login());
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.login));
                 }else{
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Reclamation());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.reclamation));
                 }
             }
         });
@@ -139,13 +135,11 @@ public class Home extends Fragment {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Login());
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.login));
                 }else{
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Profile());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.profile));
                 }
             }
         });
@@ -159,11 +153,17 @@ public class Home extends Fragment {
         if(json != null){
             try {
                 if(json.getBoolean(conf.res)) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.container_body, new Book());
-                    ft.addToBackStack(null);
-                    ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(str);
+                    if (str.equals(getString(R.string.book))) {
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.container_body, new Book());
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    } else if (str.equals(getString(R.string.advance))) {
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.container_body, new Advance());
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Don't have a taxi working", Toast.LENGTH_SHORT).show();
                 }
@@ -184,5 +184,6 @@ public class Home extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         getActivity().finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

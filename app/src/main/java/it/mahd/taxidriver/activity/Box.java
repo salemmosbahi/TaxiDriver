@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +28,9 @@ import it.mahd.taxidriver.util.Controllers;
 import it.mahd.taxidriver.util.ServerRequest;
 
 /**
- * Created by salem on 13/04/16.
+ * Created by salem on 21/05/16.
  */
-public class Advance extends Fragment {
+public class Box extends Fragment {
     SharedPreferences pref;
     Controllers conf = new Controllers();
     ServerRequest sr = new ServerRequest();
@@ -40,7 +39,7 @@ public class Advance extends Fragment {
     ArrayList<AdvanceDB> advanceDBList;
     JSONArray loads = null;
 
-    public Advance() {}
+    public Box() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,22 +49,21 @@ public class Advance extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.advance, container, false);
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.advance));
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.box));
 
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
         lv = (ListView) v.findViewById(R.id.listAdvance);
 
-        getAllBookAdvance();
+        getBookAdvanceWaiting();
 
         return v;
     }
 
-    private void getAllBookAdvance() {
+    private void getBookAdvanceWaiting() {
         if(conf.NetworkIsAvailable(getActivity())){
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair(conf.tag_token, pref.getString(conf.tag_token, "")));
             advanceDBList = new ArrayList<>();
-            JSONObject json = sr.getJSON(conf.url_getAdvanceByDriver, params);
+            JSONObject json = sr.getJSON(conf.url_getAdvanceWaiting, params);
             if(json != null){
                 try{
                     if(json.getBoolean("res")) {
@@ -83,7 +81,7 @@ public class Advance extends Fragment {
                     e.printStackTrace();
                 }
             }
-            AdvanceAdapterList adapter = new AdvanceAdapterList(getActivity(), advanceDBList, Advance.this);
+            AdvanceAdapterList adapter = new AdvanceAdapterList(getActivity(), advanceDBList, Box.this);
             lv.setAdapter(adapter);
         }else{
             Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();

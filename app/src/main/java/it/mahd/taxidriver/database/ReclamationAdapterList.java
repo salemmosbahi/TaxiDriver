@@ -12,12 +12,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import it.mahd.taxidriver.R;
+import it.mahd.taxidriver.activity.Login;
 import it.mahd.taxidriver.activity.ReclamationChat;
 import it.mahd.taxidriver.util.Controllers;
+import it.mahd.taxidriver.util.ServerRequest;
 
 /**
  * Created by salem on 3/24/16.
@@ -68,14 +77,38 @@ public class ReclamationAdapterList extends BaseAdapter {
         holder.Row_relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View x) {
-                Fragment fr = new ReclamationChat();
-                FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-                Bundle args = new Bundle();
-                args.putString(conf.tag_id, data.get(position).getId());
-                fr.setArguments(args);
-                ft.replace(R.id.container_body, fr);
-                ft.addToBackStack(null);
-                ft.commit();
+                if (data.get(position).getStatus() && !data.get(position).getMe()) {
+                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    params.add(new BasicNameValuePair(conf.tag_id, data.get(position).getId()));
+                    JSONObject json = new ServerRequest().getJSON(conf.url_changeSeen, params);
+                    if(json != null){
+                        try{
+                            if(json.getBoolean("res")){
+                                Fragment fr = new ReclamationChat();
+                                FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+                                Bundle args = new Bundle();
+                                args.putString(conf.tag_id, data.get(position).getId());
+                                fr.setArguments(args);
+                                ft.replace(R.id.container_body, fr);
+                                ft.addToBackStack(null);
+                                ft.commit();
+                            }
+                        }catch(JSONException e){
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Toast.makeText(contxt, R.string.serverunvalid,Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Fragment fr = new ReclamationChat();
+                    FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+                    Bundle args = new Bundle();
+                    args.putString(conf.tag_id, data.get(position).getId());
+                    fr.setArguments(args);
+                    ft.replace(R.id.container_body, fr);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
             }
         });
         return v;

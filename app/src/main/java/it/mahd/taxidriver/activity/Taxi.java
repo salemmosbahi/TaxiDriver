@@ -75,6 +75,8 @@ public class Taxi extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.taxi, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi));
+
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
 
         Search_input = (TextInputLayout) rootView.findViewById(R.id.Search_input);
@@ -90,7 +92,6 @@ public class Taxi extends Fragment {
                 ft.replace(R.id.container_body, new TaxiSearch());
                 ft.addToBackStack(null);
                 ft.commit();
-                ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi_search));
             }
         });
 
@@ -153,7 +154,6 @@ public class Taxi extends Fragment {
         ft.replace(R.id.container_body, new Home());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.home));
     }
 
     @Override

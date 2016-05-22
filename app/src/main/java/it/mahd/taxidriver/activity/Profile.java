@@ -1,6 +1,7 @@
 package it.mahd.taxidriver.activity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
@@ -26,6 +27,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -60,6 +65,7 @@ public class Profile extends Fragment {
     private RatingBar Point_rb;
     private Button Logout_btn, Disable_btn;
     private FloatingActionButton Age_btn, Phone_btn;
+    private static Dialog disableDialog;
 
     private String fname, lname, gender, dateN, country, city, email, phone, picture;
     private Float point, pointTotal;
@@ -74,6 +80,7 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.profile, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.profile));
 
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
 
@@ -161,11 +168,30 @@ public class Profile extends Fragment {
         Disable_btn = (Button) rootView.findViewById(R.id.Disable_btn);
         Disable_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if(conf.NetworkIsAvailable(getActivity())){
-                    disableFunct();
-                }else{
-                    Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
-                }
+                disableDialog = new Dialog(getActivity(), R.style.FullHeightDialog);
+                disableDialog.setContentView(R.layout.profile_dialog);
+                disableDialog.setCancelable(true);
+                final EditText Password_etxt;
+                Button Disablex_btn, Cancel_btn;
+                Password_etxt = (EditText) disableDialog.findViewById(R.id.Password_etxt);
+                Disablex_btn = (Button) disableDialog.findViewById(R.id.Disablex_btn);
+                Cancel_btn = (Button) disableDialog.findViewById(R.id.Cancel_btn);
+                disableDialog.show();
+                Cancel_btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        disableDialog.dismiss();
+                    }
+                });
+                Disablex_btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        disableDialog.dismiss();
+                        if(conf.NetworkIsAvailable(getActivity())){
+                            disableFunct(Password_etxt.getText().toString());
+                        }else{
+                            Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 
@@ -178,7 +204,7 @@ public class Profile extends Fragment {
         return rootView;
     }
 
-    public void disableFunct() {
+    public void disableFunct(String pwd) {
         Encrypt algo = new Encrypt();
         int x = algo.keyVirtual();
         String key = algo.key(x);
@@ -186,9 +212,11 @@ public class Profile extends Fragment {
         params.add(new BasicNameValuePair("app", algo.dec2enc(conf.app, key)));
         params.add(new BasicNameValuePair(conf.tag_key, x + ""));
         params.add(new BasicNameValuePair(conf.tag_token, pref.getString(conf.tag_token, "")));
+        params.add(new BasicNameValuePair(conf.tag_password, algo.dec2enc(pwd, key)));
         JSONObject json = sr.getJSON(conf.url_disableAccount, params);
         if (json != null) {
             try {
+                Toast.makeText(getActivity(),json.getString(conf.response),Toast.LENGTH_SHORT).show();
                 if(json.getBoolean("res")){
                     SharedPreferences.Editor edit = pref.edit();
                     edit.putString(conf.tag_token, "");
@@ -346,7 +374,6 @@ public class Profile extends Fragment {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.container_body, new Home());
                     ft.commit();
-                    ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.home));
                 }
             }catch(JSONException e){
                 e.printStackTrace();
@@ -367,7 +394,6 @@ public class Profile extends Fragment {
         ft.replace(R.id.container_body, new Home());
         ft.addToBackStack(null);
         ft.commit();
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.home));
     }
 
     @Override
